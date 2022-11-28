@@ -164,7 +164,7 @@ section {
 } */
 .about .row .content {
   flex: 1 1 45rem;
-  padding: 4rem;
+  padding: 10rem;
 }
 
 .about .row .content h3 {
@@ -214,8 +214,16 @@ section {
 }
 
 .products .box-container .box .content h3 {
-  color: #fff;
+  color: var(--main-color);
   font-size: 2.5rem;
+}
+
+.products .box-container .box .content li {
+  margin-bottom: 2px;
+  margin-top: 2px;
+  list-style: none;
+  color: var(--main-color);
+  font-size: 1.5rem;
 }
 
 .products .box-container .box .content .stars {
@@ -228,12 +236,13 @@ section {
 }
 
 .products .box-container .box .content .price {
-  color: #fff;
+  color: #457b9d;
   font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 .products .box-container .box .content .price span {
-  text-decoration: line-through;
+  text-transform: lowercase;
   font-weight: lighter;
   font-size: 1.5rem;
 }
@@ -267,7 +276,7 @@ section {
 .review .box-container .box h3 {
   padding: 1rem 0;
   font-size: 2rem;
-  color: #fff;
+  color: #1d3557;
 }
 
 .review .box-container .box .stars i {
@@ -277,9 +286,9 @@ section {
 
 .contact .row {
   display: flex;
-  background: var(--black);
+  background: var(--bg);
   flex-wrap: wrap;
-  gap: 1rem;
+  border-radius: 30px;
 }
 
 .contact .row .map {
@@ -294,23 +303,23 @@ section {
   text-align: center;
 }
 
-.contact .row form h3 {
+/* .contact .row form h3 {
   text-transform: uppercase;
   font-size: 3.5rem;
   color: #fff;
-}
+} */
 
 .contact .row form .inputBox {
   display: flex;
   align-items: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  background: var(--bg);
+  background: #fff;
   border: var(--border);
 }
 
 .contact .row form .inputBox span {
-  color: #fff;
+  color: var(--main-color);
   font-size: 2rem;
   padding-left: 2rem;
 }
@@ -319,13 +328,13 @@ section {
   width: 100%;
   padding: 2rem;
   font-size: 1.7rem;
-  color: #fff;
+  color: var(--black);
   text-transform: none;
   background: none;
 }
 
 .footer {
-  background: var(--black);
+  background: #1d3557;
   text-align: center;
 }
 
@@ -455,7 +464,6 @@ section {
   justify-content: center;
   background-color: var(--main-color);
 }
-
 .container {
   position: relative;
   max-width: 430px;
@@ -513,7 +521,7 @@ section {
   bottom: 0;
   height: 3px;
   width: 30px;
-  background-color: #4070f4;
+  background-color: #1d3557;
   border-radius: 25px;
 }
 
@@ -538,7 +546,7 @@ section {
 }
 
 .input-field input:is(:focus, :valid) {
-  border-bottom-color: #4070f4;
+  border-bottom-color: #1d3557;
 }
 
 .input-field i {
@@ -551,7 +559,7 @@ section {
 }
 
 .input-field input:is(:focus, :valid) ~ i {
-  color: #4070f4;
+  color: #1d3557;
 }
 
 .input-field i.icon {
@@ -577,7 +585,7 @@ section {
 
 .checkbox-content input {
   margin-right: 10px;
-  accent-color: #4070f4;
+  accent-color: #1d3557;
 }
 
 .form .text {
@@ -586,7 +594,7 @@ section {
 }
 
 .form a.text {
-  color: #4070f4;
+  color: #0077b6;
   text-decoration: none;
 }
 .form a:hover {
@@ -604,13 +612,13 @@ section {
   font-weight: 500;
   letter-spacing: 1px;
   border-radius: 6px;
-  background-color: #4070f4;
+  background-color: #1d3557;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .button input:hover {
-  background-color: #265df2;
+  background-color: #1d3557;
 }
 
 .form .login-signup {
