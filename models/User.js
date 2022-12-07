@@ -38,6 +38,12 @@ const userSchema = new Schema({
         required:true,
         // specifies if User or Admin
         default: 'User' 
+    },
+    community_name: {
+        type: String,
+        required:true,
+        // specifies which community the user belongs to
+        default: 'No Community Entered' 
     }
 });
 

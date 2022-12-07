@@ -54,7 +54,7 @@ mongoose.connect(db, //connect to db
 // Don't create random users, it will clutter MongoDB 
 // We are using session variables to keep track of any variables needed
     // user account: user@abc, 123
-    // admin account: user@abc, 123
+    // admin account: Admin@abc, 123
 app.route('/sign_in')
     .get(function (req, res){
         if(req.session.logged_in){
@@ -79,6 +79,7 @@ app.route('/sign_in')
             req.session.logged_in = true;
             req.session.username = user.username;
             req.session.type = user.type;
+            req.session.community_name = user.community_name;
             res.redirect("/dashboard")
         }
         else{
@@ -119,7 +120,8 @@ app.route("/sign_up")
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            type: "User"
+            type: "User",
+            community_name: req.body.community_name
         })
 
         User.find({"username": newUser.username}).lean().then(item=>{
@@ -150,14 +152,58 @@ app.get("/sign_out", (req,res)=>{
     res.redirect("/");
 })
 
+app.route("/testUpdateProfile")
+    .post(async function(req,res){  
+        await User.updateOne(
+            {
+                username: req.body.username // enter which user
+            },
+            {
+                $set:{                                  // set new variable
+                    community_name: req.body.community_name
+                }                
+            })
+        const {username, community_name} = req.body;
+        const user = await User.findOne({username}).lean();
+        req.session.community_name = user.community_name;
+        // console.log("New community name input: "+community_name)    
+        console.log("New community name set: "+req.session.community_name)    
+        res.redirect("/dashboard")
+});
+
+//return json of all non-admin users 
+app.get("/getUsers", function(req, res){
+    User.find({
+        "type": "User",
+        "community_name": "Parkview"
+    }).lean().then(item=>{
+        res.json(item)
+    })
+});
+
+
 // URL handlers
 app.get('/', function (req, res){
     res.render('index', {title: 'Hestia'});
 });
+app.get('/user', function (req, res){
+    res.render('user', {title: 'Hestia'});
+});
 app.get('/dashboard', function (req, res){
     if(req.session.logged_in){
         console.log("Accessing dashboard while already logged in, current user: "+req.session.username);
-        res.render('dashboard', {title: 'Dashboard', logged_in: req.session.logged_in, username: req.session.username, user_type: req.session.type})
+        
+        if(req.session.type=="Admin"){ //ADMIN VIEW
+            User.find({ //find user json where every user is in the same community as the admin
+                "type": "User",
+                "community_name": req.session.community_name
+            }).lean().then(items=>{
+                res.render('dashboard', {title: 'Dashboard', logged_in: req.session.logged_in, username: req.session.username, user_type: req.session.type, community_name: req.session.community_name, UsersJson: items, isAdmin: true})
+            })
+        }
+        else{ //USER VIEW
+            res.render('dashboard', {title: 'Dashboard', logged_in: req.session.logged_in, username: req.session.username, user_type: req.session.type, community_name: req.session.community_name})
+        }
     }
     else{
         console.log("Not logged in, redirecting")

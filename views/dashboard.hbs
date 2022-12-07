@@ -8,13 +8,39 @@
             <h3>Current Status</h3>
             <p>
                 User logged in? <span style="color:rgb(255, 75, 75)">{{ logged_in }}</span> <br>
-                Current user is <span style="color:rgb(255, 75, 75)">{{ username }}</span> and has <span style="color:rgb(255, 75, 75)">{{ user_type }}</span> privileges
+                Current user is <span style="color:rgb(255, 75, 75)">{{ username }}</span> from the community of <span style="color:rgb(255, 75, 75)">{{ community_name }}</span> 
+                and has <span style="color:rgb(255, 75, 75)">{{ user_type }}</span> privileges
             </p>
 
             {{!-- LOGOUT PLACEHOLDER --}}
             <p>Click here to <a href="/sign_out"> <span style="color:rgb(255, 243, 75)">LOGOUT</span></a></p>
 
             <p>This is the dashboard! Replace this placeholder with the body html for this page here</p>
+            
+            {{!-- FORM TO UPDATE PROFILE , CHANGE AS NEEDED, CURRENTLY JUST AN EXAMPLE THAT UPDATES COMMUNITY --}}
+            <form action="/testUpdateProfile" method = "POST">
+                <label><span style="color:rgb(132, 255, 75)">Enter new community name to update (example of updating user info)</span></label>
+                    <input type="text" placeholder="Enter Com Name" name="community_name" required />
+                    {{!-- hidden field below to insert username into form even though no user input it --}}
+                    <input type="hidden" name="username" value="{{ username }}"> 
+                    <input type="submit" value="Update" />
+            </form>
+
+            <br><br>
+
+            {{!-- CODE THAT LOADS A LIST OF RESIDENT USERNAMES IF THE CURRENT USER IS AN ADMIN --}}
+              <div >
+                {{#if isAdmin}}
+                <h3>Residential User List</h3>
+                <div >
+                    {{#each UsersJson}}
+                    <div>
+                        <p>{{this.username}} --- {{this.email}} --- {{this.community_name}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
 
         </div>
     </div>
