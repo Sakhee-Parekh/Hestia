@@ -533,6 +533,7 @@ section {
 }
 
 .input-field input {
+  text-transform: lowercase;
   position: absolute;
   height: 100%;
   width: 100%;
