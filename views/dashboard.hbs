@@ -66,59 +66,75 @@
       {{! CODE THAT LOADS A LIST OF RESIDENT USERNAMES IF THE CURRENT USER IS AN ADMIN }}
       <div class="admin-body row">
         {{#if isAdmin}}
-          <div class="column-dash">
-            <h3 class="dash-heading">Tickets</h3>
-            <ul>
-              <li>request: wednesday 3-5pm pool reservation
-                <i class="fas fa-check-circle"></i>
-                <i class="fas fa-times-circle"></i>
-              </li>
-              <li>request: wednesday 3-5pm pool reservation
-                <i class="fas fa-check-circle"></i>
-                <i class="fas fa-times-circle"></i>
-              </li>
-              <li>request: wednesday 3-5pm pool reservation
-                <i class="fas fa-check-circle"></i>
-                <i class="fas fa-times-circle"></i>
-              </li>
-            </ul>
-          </div>
-          <div class="column-dash">
-            <h3 class="dash-heading">Announcements</h3>
-            <ul class="dash-announce ">
-              <li>If the association's shall comply with the period stated in its governing documents. For the purposes of this paragraph, a governing document provision does not apply to a notice of an emergency meeting or a meeting held solely in executive session unless it specifically states that it applies to those types of meetings.
-              </li>
-              <li>If a nonemergency board meeting is held solely in executive session, the association shall give notice of the time and place of the meeting at least two days prior to the meeting.
-              </li>
-              <li>If the association's governing documents require a longer period of notice than is required by this section, the association shall comply with the period stated.
-              </li>
-            </ul>
-          </div>
-          <br /><br />
-          <div class="user-list">
-                        <br></br>
-            <h3 class="dash-heading">Residential User List</h3>
-            <div>
-              {{#each UsersJson}}
-                <div>
-                  <p>{{this.username}}
-                    ---
-                    {{this.email}}
-                    ---
-                    {{this.community_name}}</p>
-                </div>
-              {{/each}}
+            <div class="column-dash">
+                <h3 class="dash-heading">Tickets</h3>
+                <ul>
+                <li>request: wednesday 3-5pm pool reservation
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </li>
+                <li>request: wednesday 3-5pm pool reservation
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </li>
+                <li>request: wednesday 3-5pm pool reservation
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-times-circle"></i>
+                </li>
+                </ul>
             </div>
-          </div>
-          </div>
+            <div class="column-dash">
+                <h3 class="dash-heading">Announcements</h3>
+                <ul class="dash-announce ">
+                <li>If the association's shall comply with the period stated in its governing documents. For the purposes of this paragraph, a governing document provision does not apply to a notice of an emergency meeting or a meeting held solely in executive session unless it specifically states that it applies to those types of meetings.
+                </li>
+                <li>If a nonemergency board meeting is held solely in executive session, the association shall give notice of the time and place of the meeting at least two days prior to the meeting.
+                </li>
+                <li>If the association's governing documents require a longer period of notice than is required by this section, the association shall comply with the period stated.
+                </li>
+                </ul>
+            </div>
+            <br /><br />
+            <div class="user-list">
+                <br></br>
+                <h3 class="dash-heading">Residential User List</h3>
+                <div>
+                {{#each UsersJson}}
+                    <div>
+                    <p>{{this.username}}
+                        ---
+                        {{this.email}}
+                        ---
+                        {{this.community_name}}</p>
+                    </div>
+                {{/each}}
+                </div>
+                </div>
         {{/if}}
-      </div>
+        {{#if isUser}}
+            <div class="column-dash">
+                <h3 class="dash-heading">Calendar</h3>
+
+            </div>
+            <div class="column-dash">
+                <h3 class="dash-heading">Announcements</h3>
+                <ul class="dash-announce ">
+                <li>If the association's shall comply with the period stated in its governing documents. For the purposes of this paragraph, a governing document provision does not apply to a notice of an emergency meeting or a meeting held solely in executive session unless it specifically states that it applies to those types of meetings.
+                </li>
+                <li>If a nonemergency board meeting is held solely in executive session, the association shall give notice of the time and place of the meeting at least two days prior to the meeting.
+                </li>
+                <li>If the association's governing documents require a longer period of notice than is required by this section, the association shall comply with the period stated.
+                </li>
+                </ul>
+            </div>
+        {{/if}}
     </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
 
   <!-- footer section starts  -->
       <section class="footer">
@@ -133,4 +149,5 @@
       <!-- custom js file link  -->
       <script src="script.js"></script>
   </div>
+</div>
 </section>

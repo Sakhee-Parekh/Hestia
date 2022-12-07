@@ -238,7 +238,8 @@ app.get('/dashboard', function (req, res) {
         logged_in: req.session.logged_in,
         username: req.session.username,
         user_type: req.session.type,
-        community_name: req.session.community_name
+        community_name: req.session.community_name,
+        isUser: true
       })
     }
   } else {
