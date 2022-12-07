@@ -467,6 +467,7 @@ section {
 .container {
   position: relative;
   max-width: 430px;
+  max-height: 730px;
   width: 100%;
   background: #fff;
   border-radius: 10px;
@@ -506,7 +507,7 @@ section {
 }
 
 .container.active .forms {
-  height: 600px;
+  height: 700px;
 }
 .container .form .title {
   position: relative;

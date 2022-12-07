@@ -1,10 +1,8 @@
 //
 /*
     We are using express and nodejs, as well as mongoose for data storage
-
     If this is your first time opening this project, you need to run the following command: "npm install" to install all dependencies
     If the above command didn't work and the server still can't start then you will have to manually install using "npm install express" for example for each dependency
-
     To start the server, use "npm start" since this way it will update the server when changes are saved (no annoying server reset required)
 */
 
@@ -80,9 +78,8 @@ app
     }
   })
   .post(async (req, res) => {
-    if (!user) {
-      return res.redirect('/sign_in?error=1') // IDK how your form handles errors, edit this when you can
-    }
+    const { email, password } = req.body
+    const user = await User.findOne({ email }).lean()
 
     if (!user) {
       return res.redirect('/sign_in?error=1') // IDK how your form handles errors, edit this when you can
@@ -132,7 +129,8 @@ app
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
-      type: 'User'
+      type: 'User',
+      community_name: req.body.community_name
     })
 
     User.find({ username: newUser.username })
@@ -158,53 +156,6 @@ app
             })
         }
       })
-  })
-
-if (!plainTextPassword || typeof plainTextPassword !== 'string') {
-  console.log('Invalid password')
-  return res.redirect('/sign_up?error=1') // see above comment
-}
-
-if (plainTextPassword != req.body.passwordcheck) {
-  console.log('Password does not match')
-  return res.redirect('/sign_up?error=1') // see above comment
-}
-
-if (!accept_con) {
-  console.log('Password does not match')
-  return res.redirect('/sign_up?error=1') // see above comment
-}
-
-const newUser = new User({
-  username: req.body.username,
-  password: req.body.password,
-  email: req.body.email,
-  type: 'User',
-  community_name: req.body.community_name
-})
-
-User.find({ username: newUser.username })
-  .lean()
-  .then(item => {
-    if (item.length > 0) {
-      console.log('Username already exists')
-      res.redirect('/sign_up?error=1')
-    } else {
-      User.find({ email: newUser.email })
-        .lean()
-        .then(item => {
-          if (item.length > 0) {
-            console.log('email is already registered')
-            res.redirect('/sign_up?error=2')
-          } else {
-            newUser
-              .save()
-              .then(console.log('New user created'))
-              .catch(err => console.log('Error when creating user:', err))
-            res.redirect('/sign_in')
-          }
-        })
-    }
   })
 
 app.get('/sign_out', (req, res) => {
