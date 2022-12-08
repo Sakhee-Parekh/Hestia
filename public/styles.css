@@ -55,7 +55,11 @@ section {
   padding-bottom: 3.5rem;
   font-size: 4rem;
 }
-
+.dash-heading {
+  padding-bottom: 3.5rem;
+  font-size: 4rem;
+  color: var(--bg);
+}
 .heading span {
   color: var(--main-color);
   text-transform: uppercase;
@@ -337,7 +341,6 @@ section {
   background: #1d3557;
   text-align: center;
 }
-
 .footer .share {
   padding: 1rem 0;
 }
@@ -467,6 +470,7 @@ section {
 .container {
   position: relative;
   max-width: 430px;
+  max-height: 730px;
   width: 100%;
   background: #fff;
   border-radius: 10px;
@@ -506,7 +510,7 @@ section {
 }
 
 .container.active .forms {
-  height: 600px;
+  height: 700px;
 }
 .container .form .title {
   position: relative;
@@ -533,6 +537,7 @@ section {
 }
 
 .input-field input {
+  text-transform: lowercase;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -624,4 +629,70 @@ section {
 .form .login-signup {
   margin-top: 30px;
   text-align: center;
+}
+
+.dash .row {
+  display: flex;
+  align-items: center;
+  background: #1d3557;
+  flex-wrap: wrap;
+  border-radius: 40px;
+}
+
+.dash .row .content {
+  flex: 1 1 45rem;
+  padding: 10rem;
+}
+
+.dash .row .content h3 {
+  font-size: 3rem;
+  color: var(--bg);
+}
+
+.dash .row .content p {
+  font-size: 1.6rem;
+  color: #ccc;
+  padding: 1rem 0;
+  line-height: 1.8;
+}
+
+.admin-body {
+  background: #1d3557;
+  box-sizing: border-box;
+  display: grid;
+  grid-auto-flow: row;
+}
+.column-dash {
+  float: right;
+  width: 50%;
+}
+.dash-announce {
+  background: var(--bg);
+  border-radius: 40px;
+  padding: 30px;
+}
+ul {
+  margin: 0;
+  padding: 1rem;
+  display: grid;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  float: left;
+  list-style: none;
+}
+
+li {
+  padding: 0.5rem 1.5rem 1rem;
+  border-radius: 1.5rem;
+  font-size: 1.5rem;
+  background: var(--bg);
+  margin-bottom: 10px;
+}
+
+li i {
+  color: var(--black);
+  width: 200%;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }

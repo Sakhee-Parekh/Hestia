@@ -1,47 +1,173 @@
-{{!-- PLACEHOLDER --}}
-<section class="about" id="about">
-    <h1 class="heading">DASHBOARD PLACEHOLDER</h1>
+{{! PLACEHOLDER }}
+<section class="dash" id="dash">
+  <h1 class="heading">DASHBOARD PLACEHOLDER</h1>
 
-    <div class="row">
-        <div class="content">
-            
-            <h3>Current Status</h3>
-            <p>
-                User logged in? <span style="color:rgb(255, 75, 75)">{{ logged_in }}</span> <br>
-                Current user is <span style="color:rgb(255, 75, 75)">{{ username }}</span> from the community of <span style="color:rgb(255, 75, 75)">{{ community_name }}</span> 
-                and has <span style="color:rgb(255, 75, 75)">{{ user_type }}</span> privileges
-            </p>
+  <div class="row">
+    <div class="content">
 
-            {{!-- LOGOUT PLACEHOLDER --}}
-            <p>Click here to <a href="/sign_out"> <span style="color:rgb(255, 243, 75)">LOGOUT</span></a></p>
+      <h3>Current Status</h3>
+      <p>
+        User logged in?
+        <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
+        <br />
+        Current user is
+        <span style="color:rgb(255, 75, 75)">{{username}}</span>
+        from the community of
+        <span style="color:rgb(255, 75, 75)">{{community_name}}</span>
+        and has
+        <span style="color:rgb(255, 75, 75)">{{user_type}}</span>
+        privileges
+      </p>
 
-            <p>This is the dashboard! Replace this placeholder with the body html for this page here</p>
-            
-            {{!-- FORM TO UPDATE PROFILE , CHANGE AS NEEDED, CURRENTLY JUST AN EXAMPLE THAT UPDATES COMMUNITY --}}
-            <form action="/testUpdateProfile" method = "POST">
-                <label><span style="color:rgb(132, 255, 75)">Enter new community name to update (example of updating user info)</span></label>
-                    <input type="text" placeholder="Enter Com Name" name="community_name" required />
-                    {{!-- hidden field below to insert username into form even though no user input it --}}
-                    <input type="hidden" name="username" value="{{ username }}"> 
-                    <input type="submit" value="Update" />
-            </form>
+      {{! LOGOUT PLACEHOLDER }}
 
-            <br><br>
+      {{! <p>This is the dashboard! Replace this placeholder with the body html for this page here</p> }}
+      <!-- header section starts  -->
 
-            {{!-- CODE THAT LOADS A LIST OF RESIDENT USERNAMES IF THE CURRENT USER IS AN ADMIN --}}
-              <div >
-                {{#if isAdmin}}
-                <h3>Residential User List</h3>
-                <div >
-                    {{#each UsersJson}}
-                    <div>
-                        <p>{{this.username}} --- {{this.email}} --- {{this.community_name}}</p>
-                    </div>
-                    {{/each}}
-                </div>
-                {{/if}}
-            </div>
+      <header class="header">
+        <a href="#" class="logo">
+          <img src="images/logo.png" alt="" />
+        </a>
 
+        <nav class="navbar">
+          <a href="#announcement">announcement</a>
+          <a href="#calendar">calendar</a>
+          <a href="#account">account</a>
+          <a href="/sign_out"><span
+              style="text-transform: bold;"
+            >logout</span></a>
+        </nav>
+
+        <div class="icons">
+          <a href="/sign_in"><div class="fas fa-user" id="cart-btn"></div></a>
+          <div class="fas fa-bars" id="menu-btn"></div>
         </div>
+      </header>
+
+      <!-- header section ends -->
+
+      {{! FORM TO UPDATE PROFILE , CHANGE AS NEEDED, CURRENTLY JUST AN EXAMPLE THAT UPDATES COMMUNITY }}
+      <form action="/testUpdateProfile" method="POST">
+        <label><span style="color:rgb(132, 255, 75)">Enter new community name to
+            update (example of updating user info)</span></label>
+        <input
+          type="text"
+          placeholder="Enter Com Name"
+          name="community_name"
+          required
+        />
+        {{! hidden field below to insert username into form even though no user input it }}
+        <input type="hidden" name="username" value="{{username}}" />
+        <input type="submit" value="Update" />
+      </form>
+
+      <br /><br />
+
+      {{! CODE THAT LOADS A LIST OF RESIDENT USERNAMES IF THE CURRENT USER IS AN ADMIN }}
+      <div class="admin-body row">
+        {{#if isAdmin}}
+          <div class="column-dash">
+            <h3 class="dash-heading">Tickets</h3>
+            <ul>
+              <li>request: wednesday 3-5pm pool reservation
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+              </li>
+              <li>request: wednesday 3-5pm pool reservation
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+              </li>
+              <li>request: wednesday 3-5pm pool reservation
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+              </li>
+            </ul>
+          </div>
+          <div class="column-dash">
+            <h3 class="dash-heading">Announcements</h3>
+            <ul class="dash-announce">
+              <li>If the association's shall comply with the period stated in
+                its governing documents. For the purposes of this paragraph, a
+                governing document provision does not apply to a notice of an
+                emergency meeting or a meeting held solely in executive session
+                unless it specifically states that it applies to those types of
+                meetings.
+              </li>
+              <li>If a nonemergency board meeting is held solely in executive
+                session, the association shall give notice of the time and place
+                of the meeting at least two days prior to the meeting.
+              </li>
+              <li>If the association's governing documents require a longer
+                period of notice than is required by this section, the
+                association shall comply with the period stated.
+              </li>
+            </ul>
+          </div>
+          <br />
+          <div class="user-list">
+            <br />
+            <h3 class="dash-heading">Residential User List</h3>
+            <div>
+              {{#each UsersJson}}
+                <div>
+                  <p>{{this.username}}
+                    ---
+                    {{this.email}}
+                    ---
+                    {{this.community_name}}</p>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        {{/if}}
+        {{#if isUser}}
+          <div class="column-dash">
+            <h3 class="dash-heading">Calendar</h3>
+          </div>
+          <div class="column-dash">
+            <h3 class="dash-heading">Announcements</h3>
+            <ul class="dash-announce">
+              <li>If the association's shall comply with the period stated in
+                its governing documents. For the purposes of this paragraph, a
+                governing document provision does not apply to a notice of an
+                emergency meeting or a meeting held solely in executive session
+                unless it specifically states that it applies to those types of
+                meetings.
+              </li>
+              <li>If a nonemergency board meeting is held solely in executive
+                session, the association shall give notice of the time and place
+                of the meeting at least two days prior to the meeting.
+              </li>
+              <li>If the association's governing documents require a longer
+                period of notice than is required by this section, the
+                association shall comply with the period stated.
+              </li>
+            </ul>
+          </div>
+        {{/if}}
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <!-- footer section starts  -->
+      <section class="footer">
+        <div class="links">
+          <a href="#">Announcement</a>
+          <a href="#">Calender</a>
+          <a href="#">Account</a>
+          <a href="/sign_out">logout</a>
+        </div>
+      </section>
+      <!-- footer section ends  -->
+      <!-- custom js file link  -->
+      <script src="script.js"></script>
+      <script
+        src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"
+      ></script>
     </div>
+  </div>
 </section>
