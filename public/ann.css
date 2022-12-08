@@ -1,7 +1,7 @@
 .comments {
   text-align: left;
   font-size: 32px;
-  text-transform: uppercase;
+  text-transform: none;
   padding: 10px;
   background-color: #1d3557;
   overflow: visible !important;
