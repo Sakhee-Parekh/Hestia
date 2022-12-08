@@ -18,6 +18,7 @@ const mongoose = require('mongoose') //mongodb
 const config = require('config') //access config
 const User = require('./models/User') //get user js for Mongo
 const { request } = require('http')
+const Announcements = require('./models/Announcements')
 
 const app = express()
 const port = 8080
@@ -198,6 +199,66 @@ app.get('/getUsers', function (req, res) {
     })
 })
 
+//create announcements
+app
+  .route('/announcements')
+  // .get(function (req, res) {
+  //   res.render('sign', { title: 'Sign In' })
+  // })
+  .post(async function (req, res) {
+    const { text, creation_date, approval, creator } = req.body
+
+    // if (!username || typeof username !== 'string') {
+    //   console.log('Invalid username')
+    //   return res.redirect('/sign_up?error=1') // IDK how your form handles errors, edit this when you can
+    // }
+
+    // if (!plainTextPassword || typeof plainTextPassword !== 'string') {
+    //   console.log('Invalid password')
+    //   return res.redirect('/sign_up?error=1') // see above comment
+    // }
+
+    // if (plainTextPassword != req.body.passwordcheck) {
+    //   console.log('Password does not match')
+    //   return res.redirect('/sign_up?error=1') // see above comment
+    // }
+
+    // if (!accept_con) {
+    //   console.log('Password does not match')
+    //   return res.redirect('/sign_up?error=1') // see above comment
+    // }
+
+    const newAnnouncement = new Announcements({
+      text: text,
+      creation_date: creation_date,
+      approval: approval,
+      creator: creator
+    })
+
+    newAnnouncement
+      .save()
+      .then(console.log('New announcements created'))
+      .catch(err => console.log('Error when creating announcements:', err))
+    res.redirect('/dashboard')
+
+  })
+
+app.route('/ApproveAnnouncements').post(async function (req, res) {
+    await Announcements.updateOne(
+      {
+        id_code: req.body.id_code // enter which user
+      },
+      {
+        $set: {
+          // set new variable
+          approval: "true"
+        }
+      }
+    )
+    console.log('Approved announcement' + req.body.id_code)
+    res.redirect('/dashboard')
+  })
+
 // URL handlers
 app.get('/', function (req, res) {
   res.render('index', { title: 'Hestia' })
@@ -211,7 +272,6 @@ app.get('/dashboard', function (req, res) {
       'Accessing dashboard while already logged in, current user: ' +
         req.session.username
     )
-
     if (req.session.type == 'Admin') {
       //ADMIN VIEW
       User.find({
@@ -221,26 +281,50 @@ app.get('/dashboard', function (req, res) {
       })
         .lean()
         .then(items => {
+          Announcements.find({
+            //find announcements that are approved
+            approval: "true"
+          })
+            .lean()
+            .then(a_items => {
+              Announcements.find({
+                //find announcements that need approval
+                approval: "false"
+              })
+                .lean()
+                .then(a2_items => {
+                  res.render('dashboard', {
+                    title: 'Dashboard',
+                    logged_in: req.session.logged_in,
+                    username: req.session.username,
+                    user_type: req.session.type,
+                    community_name: req.session.community_name,
+                    UsersJson: items,
+                    AnnouncementsJson: a_items,
+                    PendingAnnouncementsJson: a2_items,
+                    isAdmin: true
+                  })
+                })
+            })
+        })
+    } else {
+      //USER VIEW
+      Announcements.find({
+        //find announcements that are approved
+        approval: "true"
+      })
+        .lean()
+        .then(a_items => {
           res.render('dashboard', {
             title: 'Dashboard',
             logged_in: req.session.logged_in,
             username: req.session.username,
             user_type: req.session.type,
             community_name: req.session.community_name,
-            UsersJson: items,
-            isAdmin: true
+            AnnouncementsJson: a_items,
+            isUser: true
           })
         })
-    } else {
-      //USER VIEW
-      res.render('dashboard', {
-        title: 'Dashboard',
-        logged_in: req.session.logged_in,
-        username: req.session.username,
-        user_type: req.session.type,
-        community_name: req.session.community_name,
-        isUser: true
-      })
     }
   } else {
     console.log('Not logged in, redirecting')

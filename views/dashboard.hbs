@@ -5,8 +5,8 @@
   <div class="row">
     <div class="content">
 
-      <h3>Current Status</h3>
-      <p>
+      {{!-- <h3>Current Status</h3> --}}
+      {{!-- <p>
         User logged in?
         <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
         <br />
@@ -17,7 +17,7 @@
         and has
         <span style="color:rgb(255, 75, 75)">{{user_type}}</span>
         privileges
-      </p>
+      </p> --}}
 
       {{! LOGOUT PLACEHOLDER }}
 
@@ -26,7 +26,7 @@
 
       <header class="header">
         <a href="#" class="logo">
-          <img src="images/logo.png" alt="" />
+          <a href="/"><img src="images/logo.png" alt="" /></a>
         </a>
 
         <nav class="navbar">
@@ -46,7 +46,7 @@
 
       <!-- header section ends -->
 
-      {{! FORM TO UPDATE PROFILE , CHANGE AS NEEDED, CURRENTLY JUST AN EXAMPLE THAT UPDATES COMMUNITY }}
+      {{!-- {{! FORM TO UPDATE PROFILE , CHANGE AS NEEDED, CURRENTLY JUST AN EXAMPLE THAT UPDATES COMMUNITY }}
       <form action="/testUpdateProfile" method="POST">
         <label><span style="color:rgb(132, 255, 75)">Enter new community name to
             update (example of updating user info)</span></label>
@@ -59,15 +59,15 @@
         {{! hidden field below to insert username into form even though no user input it }}
         <input type="hidden" name="username" value="{{username}}" />
         <input type="submit" value="Update" />
-      </form>
+      </form> --}}
 
       <br /><br />
 
       {{! CODE THAT LOADS A LIST OF RESIDENT USERNAMES IF THE CURRENT USER IS AN ADMIN }}
       <div class="admin-body row">
+
         {{#if isAdmin}}
           <div class="column-dash">
-            <h3 class="dash-heading">Tickets</h3>
             <iframe
               src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%231d3557&ctz=America%2FLos_Angeles&showTitle=0&showNav=0&showCalendars=0&showTz=0&showPrint=0&mode=WEEK&showDate=0&src=Y182ODY4Nzg2MTgzNzM1ZWNiYmJiZmEzNDk0YWY4NThmM2U4ZTMyMDMwNWRmYzc0OTUwYzZlZTYwYWI0NDkyNWNkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23AD1457"
               style="border:solid 1px #777"
@@ -78,15 +78,51 @@
             ></iframe>
           </div>
           <div class="column-dash">
-            <h3 class="dash-heading">Announcements</h3>
-            <div class="post">
-              <div class="comments" id="1">
-                <div class="add">
-                  <input type="text" />
-                  <button onClick="addComment(1)">Submit</button>
+              <h3 class="dash-heading">Announcements</h3>
+              <form action="/announcements" method="POST">
+                <label><span style="color:rgb(132, 255, 75)">Create Announcement</span></label>
+                <input
+                  type="text"
+                  placeholder="Enter announcement text"
+                  name="text"
+                  required
+                />
+                <input type="hidden" name="creator" value="{{username}}" />
+                <input type="hidden" name="approval" value="true"/>
+                <input type="submit" value="Create Announcement" />
+              </form> 
+
+              {{!-- Display Announcements --}}
+              <div>
+              {{#each AnnouncementsJson}}
+                <div>
+                  <p>{{this.text}}
+                    <br>
+                    {{this.creator}}
+                    <br>
+                    {{this.creation_date}}
+                  </p>
                 </div>
-                <div class="commentList"></div>
-              </div>
+              {{/each}}
+
+              {{!-- DISPLAY ANNOUNCEMENTS THAT NEED APPROVAL --}}
+              {{#each PendingAnnouncementsJson}}
+                <div>
+                  <p>{{this.text}}
+                    <br>
+                    {{this.creator}}
+                    <br>
+                    {{this.creation_date}}
+                  </p>
+                  <div>
+                    <form action="/ApproveAnnouncements" method="POST">
+                      <input type="hidden" name="id_code" value="{{this.id_code}}" />
+                      <input type="submit" value="Approve" />
+                    </form>
+                  </div>
+                </div>
+              {{/each}}
+
             </div>
           </div>
           <br />
@@ -105,10 +141,11 @@
               {{/each}}
             </div>
           </div>
-        {{/if}}
+        {{/if}} 
+        {{!-- END ADMIN --}}
+
         {{#if isUser}}
           <div class="column-dash">
-            <h3 class="dash-heading">Calendar</h3>
             <iframe
               src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%231d3557&ctz=America%2FLos_Angeles&showTitle=0&showNav=0&showCalendars=0&showTz=0&showPrint=0&mode=WEEK&showDate=0&src=Y182ODY4Nzg2MTgzNzM1ZWNiYmJiZmEzNDk0YWY4NThmM2U4ZTMyMDMwNWRmYzc0OTUwYzZlZTYwYWI0NDkyNWNkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23AD1457"
               style="border:solid 1px #777"
@@ -119,25 +156,34 @@
             ></iframe>
           </div>
           <div class="column-dash">
-            <h3 class="dash-heading">Announcements</h3>
-            <ol class="dash-announce">
-              <li>If the association's shall comply with the period stated in
-                its governing documents. For the purposes of this paragraph, a
-                governing document provision does not apply to a notice of an
-                emergency meeting or a meeting held solely in executive session
-                unless it specifically states that it applies to those types of
-                meetings.
-              </li>
-              <li>If a nonemergency board meeting is held solely in executive
-                session, the association shall give notice of the time and place
-                of the meeting at least two days prior to the meeting.
-              </li>
-              <li>If the association's governing documents require a longer
-                period of notice than is required by this section, the
-                association shall comply with the period stated.
-              </li>
-            </ol>
-          </div>
+              <h3 class="dash-heading">Announcements</h3>
+              <form action="/announcements" method="POST">
+                <label><span style="color:rgb(132, 255, 75)">Create Announcement</span></label>
+                <input
+                  type="text"
+                  placeholder="Enter announcement text"
+                  name="text"
+                  required
+                />
+                <input type="hidden" name="creator" value="{{username}}" />
+                <input type="hidden" name="approval" value="false"/>
+                <input type="submit" value="Create Announcement" />
+              </form> 
+
+              {{!-- Display Announcements --}}
+              <div>
+              {{#each AnnouncementsJson}}
+                <div>
+                  <p>{{this.text}}
+                    <br>
+                    {{this.creator}}
+                    <br>
+                    {{this.creation_date}}
+                  </p>
+                </div>
+              {{/each}}
+              </div>
+            </div>
         {{/if}}
       </div>
       <br />
