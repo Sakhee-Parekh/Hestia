@@ -1,0 +1,32 @@
+.comments {
+  text-align: left;
+  font-size: 32px;
+  text-transform: uppercase;
+  padding: 10px;
+  background-color: #1d3557;
+  overflow: visible !important;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.add button {
+  padding: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background-color: var(--bg);
+  cursor: pointer;
+}
+.commentList {
+  color: var(--bg);
+  font-size: 20px;
+  text-transform: none;
+  padding: 10px;
+}
+.hidden {
+  display: none;
+}

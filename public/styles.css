@@ -1,5 +1,6 @@
 /* ===== Google Font Import - Poformsins ===== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "ann.css";
 
 :root {
   --main-color: #457b9d;
@@ -671,7 +672,7 @@ section {
   border-radius: 40px;
   padding: 30px;
 }
-ul {
+.column-dash ul {
   margin: 0;
   padding: 1rem;
   display: grid;
@@ -682,7 +683,7 @@ ul {
   list-style: none;
 }
 
-li {
+.column-dash li {
   padding: 0.5rem 1.5rem 1rem;
   border-radius: 1.5rem;
   font-size: 1.5rem;
@@ -690,7 +691,7 @@ li {
   margin-bottom: 10px;
 }
 
-li i {
+.column-dash li i {
   color: var(--black);
   width: 200%;
   margin-bottom: 10px;
