@@ -6,7 +6,7 @@
   background-color: #1d3557;
   overflow: visible !important;
 }
-input[type="text"] {
+.input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
