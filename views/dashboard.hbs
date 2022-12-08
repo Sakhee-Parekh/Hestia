@@ -73,11 +73,11 @@
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-times-circle"></i>
               </li>
-              <li>request: wednesday 3-5pm pool reservation
+              <li>request: friday 4-5pm community park reservation
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-times-circle"></i>
               </li>
-              <li>request: wednesday 3-5pm pool reservation
+              <li>request: thursday 1-2pm pool reservation
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-times-circle"></i>
               </li>
@@ -85,23 +85,15 @@
           </div>
           <div class="column-dash">
             <h3 class="dash-heading">Announcements</h3>
-            <ul class="dash-announce">
-              <li>If the association's shall comply with the period stated in
-                its governing documents. For the purposes of this paragraph, a
-                governing document provision does not apply to a notice of an
-                emergency meeting or a meeting held solely in executive session
-                unless it specifically states that it applies to those types of
-                meetings.
-              </li>
-              <li>If a nonemergency board meeting is held solely in executive
-                session, the association shall give notice of the time and place
-                of the meeting at least two days prior to the meeting.
-              </li>
-              <li>If the association's governing documents require a longer
-                period of notice than is required by this section, the
-                association shall comply with the period stated.
-              </li>
-            </ul>
+            <div class="post">
+              <div class="comments" id="1">
+                <div class="add">
+                  <input type="text" />
+                  <button onClick="addComment(1)">Submit</button>
+                </div>
+                <div class="commentList"></div>
+              </div>
+            </div>
           </div>
           <br />
           <div class="user-list">
@@ -123,10 +115,18 @@
         {{#if isUser}}
           <div class="column-dash">
             <h3 class="dash-heading">Calendar</h3>
+            <iframe
+              src="https://calendar.google.com/calendar/embed?height=400&wkst=1&bgcolor=%231d3557&ctz=America%2FLos_Angeles&showTitle=0&showNav=0&showCalendars=0&showTz=0&showPrint=0&mode=WEEK&showDate=0&src=Y182ODY4Nzg2MTgzNzM1ZWNiYmJiZmEzNDk0YWY4NThmM2U4ZTMyMDMwNWRmYzc0OTUwYzZlZTYwYWI0NDkyNWNkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23AD1457"
+              style="border:solid 1px #777"
+              width="600"
+              height="400"
+              frameborder="0"
+              scrolling="no"
+            ></iframe>
           </div>
           <div class="column-dash">
             <h3 class="dash-heading">Announcements</h3>
-            <ul class="dash-announce">
+            <ol class="dash-announce">
               <li>If the association's shall comply with the period stated in
                 its governing documents. For the purposes of this paragraph, a
                 governing document provision does not apply to a notice of an
@@ -142,7 +142,7 @@
                 period of notice than is required by this section, the
                 association shall comply with the period stated.
               </li>
-            </ul>
+            </ol>
           </div>
         {{/if}}
       </div>
@@ -164,10 +164,8 @@
       </section>
       <!-- footer section ends  -->
       <!-- custom js file link  -->
-      <script src="script.js"></script>
-      <script
-        src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"
-      ></script>
     </div>
   </div>
 </section>
+<script type="text/javascript" src="announcements.js"></script>
+<script src="script.js"></script>
