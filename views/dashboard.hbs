@@ -5,7 +5,7 @@
   <div class="row">
     <div class="content">
 
-      {{!-- <h3>Current Status</h3> --}}
+      {{! <h3>Current Status</h3> }}
       {{!-- <p>
         User logged in?
         <span style="color:rgb(255, 75, 75)">{{logged_in}}</span>
@@ -78,46 +78,54 @@
             ></iframe>
           </div>
           <div class="column-dash">
-              <h3 class="dash-heading">Announcements</h3>
-              <form action="/announcements" method="POST">
-                <label><span style="color:rgb(132, 255, 75)">Create Announcement</span></label>
-                <input
-                  type="text"
-                  placeholder="Enter announcement text"
-                  name="text"
-                  required
-                />
-                <input type="hidden" name="creator" value="{{username}}" />
-                <input type="hidden" name="approval" value="true"/>
-                <input type="submit" value="Create Announcement" />
-              </form> 
+            <h3 class="dash-heading">Announcements</h3>
+            <form action="/announcements" method="POST">
+              <label class="announcemnets">Create Announcement</label>
+              <input
+                type="text"
+                placeholder="Enter announcement text"
+                name="text"
+                required
+              />
+              <input type="hidden" name="creator" value="{{username}}" />
+              <input type="hidden" name="approval" value="true" />
+              <input class="submit-button" type="submit" value="Submit" />
+            </form>
 
-              {{!-- Display Announcements --}}
-              <div>
+            {{! Display Announcements }}
+            <div class="display-ann">
               {{#each AnnouncementsJson}}
-                <div>
+                <div class="display-text">
                   <p>{{this.text}}
-                    <br>
+                    <br />
                     {{this.creator}}
-                    <br>
+                    <br />
                     {{this.creation_date}}
                   </p>
                 </div>
               {{/each}}
 
-              {{!-- DISPLAY ANNOUNCEMENTS THAT NEED APPROVAL --}}
+              {{! DISPLAY ANNOUNCEMENTS THAT NEED APPROVAL }}
               {{#each PendingAnnouncementsJson}}
-                <div>
+                <div class="display-text">
                   <p>{{this.text}}
-                    <br>
+                    <br />
                     {{this.creator}}
-                    <br>
+                    <br />
                     {{this.creation_date}}
                   </p>
                   <div>
                     <form action="/ApproveAnnouncements" method="POST">
-                      <input type="hidden" name="id_code" value="{{this.id_code}}" />
-                      <input type="submit" value="Approve" />
+                      <input
+                        type="hidden"
+                        name="id_code"
+                        value="{{this.id_code}}"
+                      />
+                      <input
+                        class="submit-button2"
+                        type="submit"
+                        value="Approve"
+                      />
                     </form>
                   </div>
                 </div>
@@ -131,18 +139,18 @@
             <h3 class="dash-heading">Residential User List</h3>
             <div>
               {{#each UsersJson}}
-                <div>
-                  <p>{{this.username}}
+                <div class="res-user">
+                  <h4>{{this.username}}
                     ---
                     {{this.email}}
                     ---
-                    {{this.community_name}}</p>
+                    {{this.community_name}}</h4>
                 </div>
               {{/each}}
             </div>
           </div>
-        {{/if}} 
-        {{!-- END ADMIN --}}
+        {{/if}}
+        {{! END ADMIN }}
 
         {{#if isUser}}
           <div class="column-dash">
@@ -156,34 +164,38 @@
             ></iframe>
           </div>
           <div class="column-dash">
-              <h3 class="dash-heading">Announcements</h3>
-              <form action="/announcements" method="POST">
-                <label><span style="color:rgb(132, 255, 75)">Create Announcement</span></label>
-                <input
-                  type="text"
-                  placeholder="Enter announcement text"
-                  name="text"
-                  required
-                />
-                <input type="hidden" name="creator" value="{{username}}" />
-                <input type="hidden" name="approval" value="false"/>
-                <input type="submit" value="Create Announcement" />
-              </form> 
+            <h3 class="dash-heading">Announcements</h3>
+            <form action="/announcements" method="POST">
+              <label class="announcemnets">Create Announcement</label>
+              <input
+                type="text"
+                placeholder="Enter announcement text"
+                name="text"
+                required
+              />
+              <input type="hidden" name="creator" value="{{username}}" />
+              <input type="hidden" name="approval" value="false" />
+              <input
+                class="submit-button"
+                type="submit"
+                value="Create Announcement"
+              />
+            </form>
 
-              {{!-- Display Announcements --}}
-              <div>
+            {{! Display Announcements }}
+            <div class="display-ann">
               {{#each AnnouncementsJson}}
-                <div>
+                <div class="display-text">
                   <p>{{this.text}}
-                    <br>
+                    <br />
                     {{this.creator}}
-                    <br>
+                    <br />
                     {{this.creation_date}}
                   </p>
                 </div>
               {{/each}}
-              </div>
             </div>
+          </div>
         {{/if}}
       </div>
       <br />
